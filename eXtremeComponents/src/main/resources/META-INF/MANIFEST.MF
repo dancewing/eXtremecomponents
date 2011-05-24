@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Ant-Version: Apache Ant 1.5.3 
+Created-By: Apache Maven
+Built-By: jeff
+Package: org.extremecomponents
+Build-Jdk: 1.4.2_09
+Extension-Name: extremecomponents
+Specification-Title: eXtremeComponents is a jsp dynamically generat...
+Specification-Vendor: sourceforge
+Implementation-Title: org.extremecomponents
+Implementation-Vendor: sourceforge
+Implementation-Version: 1.0.1
+
