@@ -41,8 +41,6 @@ public class ViewHandler {
 
     public void setView() throws Exception {
         boolean isExported = model.getLimit().isExported();
-        boolean isAjaxTable = model.getTableHandler().getTable().isAjaxTable();
-        boolean isAjaxPost = model.getLimit().isAjaxPosted();
 
         String currentView = null;
 
@@ -52,19 +50,7 @@ public class ViewHandler {
             if (StringUtils.isNotBlank(preference)) {
                 currentView = preference;
             }
-        } else if (isAjaxTable) {
-            if (isAjaxPost) {
-                currentView = TableConstants.VIEW_AJAX_POST;
-            } else {
-                currentView = TableConstants.VIEW_AJAX_GET;
-            }
-            String preference = model.getPreferences().getPreference(PreferencesConstants.TABLE_VIEW + currentView);
-            if (StringUtils.isNotBlank(preference)) {
-                currentView = preference;
-            }
-
-
-        } else {
+        }  else {
             currentView = model.getTableHandler().getTable().getView();
             String preference = model.getPreferences().getPreference(PreferencesConstants.TABLE_VIEW + currentView);
             if (StringUtils.isNotBlank(preference)) {

@@ -363,17 +363,25 @@
         <body-content>JSP</body-content>
         <attribute>
             <description>
-                <![CDATA[The URI that will be called when the filter, sort and pagination is used.]]></description>
-            <name>action</name>
-            <required>false</required>
+                <![CDATA[The items used for Table.]]>
+            </description>
+            <name>items</name>
+            <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
             <description>
-                <![CDATA[The DataSource used for Table.]]>
+                <![CDATA[The totalRows used for Table.]]>
             </description>
-            <name>dataSource</name>
+            <name>totalRows</name>
             <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The URI that will be called when the filter, sort and pagination is used.]]></description>
+            <name>action</name>
+            <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
@@ -541,8 +549,8 @@
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>
-            <description><![CDATA[The table if support ajax.]]></description>
-            <name>inPlace</name>
+            <description><![CDATA[The retrieveRowsCallback for table if not support use default]]></description>
+            <name>retrieveRowsCallback</name>
             <required>false</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
@@ -677,6 +685,22 @@
         <tag-class>org.extremecomponents.tree.TreeTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
+            <description>
+                <![CDATA[The items used for Table.]]>
+            </description>
+            <name>items</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[The totalRows used for Table.]]>
+            </description>
+            <name>totalRows</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>
+        <attribute>
             <description><![CDATA[The field of the bean holding the relationship to the parent.]]></description>
             <name>parentAttribute</name>
             <required>true</required>
@@ -752,12 +776,6 @@
                 <![CDATA[A fully qualified class name to a custom InterceptTable implementation. Could also be a named type in the preferences. Used to add table attributes.]]></description>
             <name>interceptor</name>
             <required>false</required>
-            <rtexprvalue>true</rtexprvalue>
-        </attribute>
-        <attribute>
-            <description><![CDATA[Reference the collection that will be retrieved.]]></description>
-            <name>dataSource</name>
-            <required>true</required>
             <rtexprvalue>true</rtexprvalue>
         </attribute>
         <attribute>

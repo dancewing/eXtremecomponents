@@ -26,7 +26,6 @@ public final class TableLimit implements Limit {
     protected FilterSet filterSet;
     protected Sort sort;
     protected boolean exported;
-    protected boolean ajaxPosted;
     protected int rowStart;
     protected int rowEnd;
     protected int currentRowsDisplayed;
@@ -40,7 +39,6 @@ public final class TableLimit implements Limit {
         this.sort = limitFactory.getSort();
         this.page = limitFactory.getPage();
         this.exported = limitFactory.isExported();
-        this.ajaxPosted = limitFactory.isAjaxPosted();
     }
 
 
@@ -85,9 +83,6 @@ public final class TableLimit implements Limit {
         return sort.isSorted();
     }
 
-    public boolean isAjaxPosted() {
-        return ajaxPosted;
-    }
     public boolean isExported() {
         return exported;
     }

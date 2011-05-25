@@ -7,7 +7,6 @@ import org.apache.commons.collections.comparators.ReverseComparator;
 import org.apache.commons.lang.StringUtils;
 import org.extremecomponents.util.FilterPredicate;
 import org.extremecomponents.table.core.TableConstants;
-import org.extremecomponents.table.core.TableDataSource;
 import org.extremecomponents.table.limit.Filter;
 import org.extremecomponents.table.limit.Sort;
 import org.extremecomponents.util.Assert;
@@ -20,7 +19,7 @@ import java.util.List;
 /**
  * Created by jeff
  */
-public class CollectionTableDataSource<T> implements TableDataSource {
+public class CollectionTableDataSource<T> {
 
     private List<T> data;
     private List<T> filterData;

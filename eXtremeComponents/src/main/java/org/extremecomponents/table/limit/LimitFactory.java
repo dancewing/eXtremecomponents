@@ -32,7 +32,5 @@ public interface LimitFactory {
 
     public FilterSet getFilterSet();
 
-    public boolean isAjaxPosted();
-
     public Map getSortedOrFilteredParameters(String parameter);
 }

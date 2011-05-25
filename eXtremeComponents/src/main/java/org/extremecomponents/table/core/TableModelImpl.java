@@ -175,7 +175,7 @@ public final class TableModelImpl implements TableModel {
 
     public Collection execute() throws Exception {
 
-        Integer totalRows = getTableHandler().getTotalRows();
+        int totalRows = getTableHandler().getTotalRows();
 
         int defaultRowsDisplayed = getTableHandler().getTable().getRowsDisplayed();
 
@@ -185,10 +185,9 @@ public final class TableModelImpl implements TableModel {
             logger.debug(limit.toString());
         }
 
-        Collection rows = getTableHandler().getData(limit.getRowStart(),limit.getRowEnd());
+        Collection rows = getTableHandler().getData();
 
         this.collectionOfBeans = TableModelUtils.retrieveRows(this,rows);
-
         return this.collectionOfBeans;
     }
 
@@ -215,11 +214,6 @@ public final class TableModelImpl implements TableModel {
             context.setRequestAttribute(TableConstants.VIEW_DATA, viewData);
             context.setRequestAttribute(TableConstants.VIEW_RESOLVER, exportHandler.getCurrentExport().getViewResolver());
             context.setRequestAttribute(TableConstants.EXPORT_FILE_NAME, exportHandler.getCurrentExport().getFileName());
-            return "";
-        }
-
-        if (limit.isAjaxPosted()) {
-            context.setRequestAttribute(TableConstants.AJAX_VIEW_DATA, viewData);
             return "";
         }
 

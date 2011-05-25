@@ -15,9 +15,10 @@
  */
 package org.extremecomponents.table.bean;
 
-import org.extremecomponents.table.core.TableDataSource;
 import org.extremecomponents.table.core.TableModel;
 import org.extremecomponents.util.StringUtils;
+
+import java.util.Collection;
 
 /**
  * @author Jeff Johnston
@@ -60,9 +61,8 @@ public class Table extends Attributes {
     private String view;
     private String width;
     private String retrieveRowsCallback;
-
-    private TableDataSource dataSource;
-    private String inPlace;
+    private int totalRows;
+    private Collection items;
 
     public Table(TableModel model) {
         this.model = model;
@@ -380,23 +380,19 @@ public class Table extends Attributes {
         this.retrieveRowsCallback = retrieveRowsCallback;
     }
 
-    public void setDataSource(TableDataSource dataSource) {
-        this.dataSource = dataSource;
+    public int getTotalRows() {
+        return totalRows;
     }
 
-    public TableDataSource getDataSource() {
-        return dataSource;
+    public void setTotalRows(int totalRows) {
+        this.totalRows = totalRows;
     }
 
-    public String getInPlace() {
-        return inPlace;
+    public Collection getItems() {
+        return items;
     }
 
-    public void setInPlace(String inPlace) {
-        this.inPlace = inPlace;
-    }
-
-    public boolean isAjaxTable() {
-        return StringUtils.hasText(inPlace);
+    public void setItems(Collection items) {
+        this.items = items;
     }
 }

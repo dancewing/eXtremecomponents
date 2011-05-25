@@ -41,7 +41,5 @@ public interface Limit {
 
     public boolean isExported();
 
-    public boolean isAjaxPosted();
-
     public void setRowAttributes(int totalRows, int defaultRowsDisplayed);
 }

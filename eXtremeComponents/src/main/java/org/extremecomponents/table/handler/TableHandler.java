@@ -66,10 +66,10 @@ public class TableHandler {
      * @return The totalRows that will be used for the Limit.setAttributes().
      */
     public Integer getTotalRows() {
-        return table.getDataSource().getAvailableRows(Arrays.asList(model.getLimit().getFilterSet().getFilters()),model.getLimit().getSort());
+        return table.getTotalRows();
     }
 
-    public Collection getData(int rowStart, int rowEnd) {
-        return table.getDataSource().getData(rowStart,rowEnd);
+    public Collection getData() {
+        return table.getItems();
     }
 }

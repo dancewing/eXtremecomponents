@@ -15,6 +15,7 @@
  */
 package org.extremecomponents.table.tag;
 
+import java.util.Collection;
 import java.util.Iterator;
 
 import javax.servlet.jsp.JspException;
@@ -24,12 +25,10 @@ import javax.servlet.jsp.tagext.TryCatchFinally;
 import org.extremecomponents.table.bean.Table;
 import org.extremecomponents.table.context.JspPageContext;
 import org.extremecomponents.table.core.TableConstants;
-import org.extremecomponents.table.core.TableDataSource;
 import org.extremecomponents.table.core.TableModel;
 import org.extremecomponents.table.core.TableModelImpl;
 import org.extremecomponents.table.interceptor.TableInterceptor;
 import org.extremecomponents.util.ExceptionUtils;
-import org.extremecomponents.util.StringUtils;
 
 /**
  * @author Jeff Johnston
@@ -73,8 +72,9 @@ public class TableTag extends TagSupport implements TryCatchFinally, TableInterc
     private String var;
     private String view;
     private String width;
-    private Object dataSource;
-    private String inPlace;
+    private Object items;
+    private String totalRows;
+    private String retrieveRowsCallback;
 
     protected TableModel model;
     private Iterator iterator;
@@ -359,12 +359,16 @@ public class TableTag extends TagSupport implements TryCatchFinally, TableInterc
         this.medianRowsDisplayed = medianRowsDisplayed;
     }
 
-    public void setDataSource(Object dataSource) {
-        this.dataSource = dataSource;
+    public void setTotalRows(String totalRows) {
+        this.totalRows = totalRows;
     }
 
-    public void setInPlace(String inPlace) {
-        this.inPlace = inPlace;
+    public void setItems(Object items) {
+        this.items = items;
+    }
+
+    public void setRetrieveRowsCallback(String retrieveRowsCallback) {
+        this.retrieveRowsCallback = retrieveRowsCallback;
     }
 
     public int doStartTag() throws JspException {
@@ -412,9 +416,9 @@ public class TableTag extends TagSupport implements TryCatchFinally, TableInterc
             table.setVar(TagUtils.evaluateExpressionAsString("var", this.var, pageContext));
             table.setView(TagUtils.evaluateExpressionAsString("view", this.view, pageContext));
             table.setWidth(TagUtils.evaluateExpressionAsString("width", this.width, pageContext));
-
-            table.setInPlace(TagUtils.evaluateExpressionAsString("inPlace", this.inPlace, pageContext));
-            table.setDataSource((TableDataSource) TagUtils.evaluateExpressionAsObject("dataSource", this.dataSource, pageContext));
+            table.setRetrieveRowsCallback(TagUtils.evaluateExpressionAsString("retrieveRowsCallback", this.retrieveRowsCallback, pageContext));
+            table.setItems((Collection)TagUtils.evaluateExpressionAsObject("items", this.items, pageContext));
+            table.setTotalRows(TagUtils.evaluateExpressionAsInt("totalRows", this.totalRows, pageContext));
 
             addTableAttributes(model, table);
             model.addTable(table);
@@ -423,18 +427,6 @@ public class TableTag extends TagSupport implements TryCatchFinally, TableInterc
             throw new JspException("TableTag.doStartTag() Problem: " + ExceptionUtils.formatStackTrace(e));
         }
 
-
-        if (model.getTableHandler().getTable().isAjaxTable()) {
-            try {
-                if (!model.getLimit().isAjaxPosted()) {
-                    model.getViewHandler().setView();
-                    model.getViewHandler().doBeforeBody();
-                    return SKIP_BODY;
-                }
-            } catch (Exception e) {
-                throw new JspException("TableTag.doAfterBody() Problem: " + ExceptionUtils.formatStackTrace(e));
-            }
-        }
         return EVAL_BODY_INCLUDE;
     }
 
@@ -449,16 +441,9 @@ public class TableTag extends TagSupport implements TryCatchFinally, TableInterc
 
         try {
             if (iterator == null) {
-
-                if (!model.getTableHandler().getTable().isAjaxTable() || model.getLimit().isAjaxPosted() ) {
-                    model.getViewHandler().setView();
-                }
+                model.getViewHandler().setView();
                 iterator = model.execute().iterator();
-
-                if (!model.getTableHandler().getTable().isAjaxTable() || model.getLimit().isAjaxPosted() ) {
-                    model.getViewHandler().doBeforeBody();
-                }
-
+                model.getViewHandler().doBeforeBody();
             }
 
             if (iterator != null && iterator.hasNext()) {
@@ -523,8 +508,8 @@ public class TableTag extends TagSupport implements TryCatchFinally, TableInterc
         var = null;
         view = null;
         width = null;
-
-        dataSource = null;
+        items = null;
+        totalRows = null;
         super.release();
     }
 }

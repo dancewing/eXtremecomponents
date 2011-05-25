@@ -34,11 +34,6 @@ public final class ExtremeFilterUtils {
         return StringUtils.isNotBlank(getTableId(context));
     }
 
-    public static boolean isAjax(Context context) {
-        String ajax_attr = context.getParameter(TableConstants.AJAX_TABLE_ID);
-        return StringUtils.isNotBlank(ajax_attr);
-    }
-
     public static String getExportFileName(Context context) {
         String tableId = getTableId(context);
 

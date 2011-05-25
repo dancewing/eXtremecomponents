@@ -22,7 +22,6 @@ public class ParamsBuilder {
     }
 
     public Map<String, Object> getParams() {
-        ajaxInplaceParameter();
         instanceParameter();
         exportTableIdParameter();
         exportParameters();
@@ -34,14 +33,6 @@ public class ParamsBuilder {
         formActionParameters();
         userDefinedParameters();
         return params;
-    }
-
-    private void ajaxInplaceParameter() {
-        if (model.getTableHandler().getTable().isAjaxTable()) {
-            params.put(model.getTableHandler().prefixWithTableId() + TableConstants.AJAX_TABLE_IN_PLACE,
-               model.getTableHandler().getTable().getInPlace()
-               );
-        }
     }
 
     private void formActionParameters() {
