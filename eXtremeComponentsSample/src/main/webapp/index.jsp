@@ -2,6 +2,7 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.extremecomponents.org/tags" prefix="ec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <html>
 
@@ -19,7 +20,7 @@
 
 <% java.util.List presidents = new java.util.ArrayList(); %>
 
-<% for (int k = 0; k < 180; k++) { %>
+<% for (int k = 0; k < 113; k++) { %>
 <% java.util.Map president = new java.util.HashMap(); %>
 <% president.put("firstName", "George"); %>
 <% president.put("lastName", "Washington"); %>
@@ -66,15 +67,13 @@
 <%
     }
 %>
-<%
-    CollectionTableDataSource dataSource = new CollectionTableDataSource(presidents);
 
-%>
-<% request.setAttribute("dataSource", dataSource);
+<%
     HashMap sexMap = new HashMap();
     sexMap.put("1", "Male");
     sexMap.put("0", "Female");
     request.setAttribute("sexMap", sexMap);
+    request.setAttribute("presidents",presidents);
 %>
 
 <body style="margin:25px;">
@@ -85,11 +84,11 @@
 
 <br>
 <% long start = System.currentTimeMillis();%>
-<ec:table dataSource="${dataSource}"
+<ec:table items="${presidents}" totalRows="${fn:length(presidents)}"
           action="${pageContext.request.contextPath}/index.jsp"
           title="Presidents"
           width="60%"
-          rowsDisplayed="500" filterable="true" var="t" tableId="ec_224"
+          rowsDisplayed="15" filterable="true" var="t" tableId="ec_224" retrieveRowsCallback="org.extremecomponents.table.callback.MemoryRowsCallback"
         >
     <ec:exportXls fileName="Test.xls"/>
     <ec:exportPdf fileName="Test.pdf" font="sans"/>
@@ -114,47 +113,8 @@
 <%=System.currentTimeMillis()-start%>
 <br>
 
-<ec:table dataSource="${dataSource}"
-          action="${pageContext.request.contextPath}/index.jsp"
-          title="Presidents"
-          width="60%"
-          rowsDisplayed="5" filterable="true" var="t" bufferView="true"
-        >
-    <ec:exportXls fileName="Test.xls"/>
-    <ec:row>
-        <ec:column property="name" viewsAllowed="html" filterable="false" alias="checkbox" headerCell="selectAll"
-                   cell="checkbox"/>
-            <ec:column alias="fullName">
-                 <ec:column property="firstName" sortable="true"/>
-                 <ec:column property="lastName"/>
-            </ec:column>
-            <ec:column alias="sex">
-            ${sexMap[t.sex]}
-        </ec:column>
-        <ec:column property="term"/>
-    </ec:row>
-</ec:table>
-
 <br>
 
-<ec:table dataSource="${dataSource}"
-          action="${pageContext.request.contextPath}/index.jsp"
-          title="Presidents"
-          width="60%"
-          rowsDisplayed="5" filterable="true" var="t"
-        >
-    <ec:exportXls fileName="Test.xls"/>
-    <ec:row>
-        <ec:column property="name" viewsAllowed="html" filterable="false" alias="checkbox" headerCell="selectAll"
-                   cell="checkbox"/>
-        <ec:column property="firstName" sortable="true"/>
-        <ec:column property="lastName"/>
-        <ec:column alias="sex">
-            ${sexMap[t.sex]}
-        </ec:column>
-        <ec:column property="term"/>
-    </ec:row>
-</ec:table>
 
 </body>
 </html>

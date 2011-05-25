@@ -2,8 +2,8 @@ famous table taglib components (from http://sourceforge.net/projects/extremecomp
 it's not updated so far.
 
 I did something based on original project.
-1.Using TableDataSource to get data
-2.It supports multi column headers now
-3.Remove something not usefull callback.
+1.It supports multi column headers now
+2.Remove something not usefull callback.
+3.Add totalRows attribute to TableTag
 
 please check out code,see demo.
